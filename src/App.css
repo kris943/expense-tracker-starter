@@ -33,13 +33,13 @@ h1 {
 }
 
 .income-amount {
-  color: green;
+  color: orange;
   font-size: 20px;
   font-weight: bold;
 }
 
 .expense-amount {
-  color: red;
+  color: blue;
   font-size: 20px;
   font-weight: bold;
 }
