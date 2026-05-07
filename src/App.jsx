@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import './App.css'
+import AuthPage from './AuthPage.jsx'
 import Summary from './Summary.jsx'
 import TransactionForm from './TransactionForm.jsx'
 import TransactionList from './TransactionList.jsx'
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
   const [transactions, setTransactions] = useState([
     { id: 1, description: "Salary", amount: 5000, type: "income", category: "salary", date: "2025-01-01" },
     { id: 2, description: "Rent", amount: 1200, type: "expense", category: "housing", date: "2025-01-02" },
@@ -24,10 +26,22 @@ function App() {
     setTransactions(prev => prev.filter(t => t.id !== id));
   };
 
+  if (!currentUser) {
+    return <AuthPage onLogin={setCurrentUser} />;
+  }
+
   return (
     <div className="app">
-      <h1>Finance Tracker</h1>
-      <p className="subtitle">Track your income and expenses</p>
+      <div className="app-header">
+        <div>
+          <h1>Finance Tracker</h1>
+          <p className="subtitle">Track your income and expenses</p>
+        </div>
+        <div className="user-info">
+          <span>Hello, {currentUser}</span>
+          <button className="logout-btn" onClick={() => setCurrentUser(null)}>Sign Out</button>
+        </div>
+      </div>
       <Summary transactions={transactions} />
       <TransactionForm onAdd={handleAdd} />
       <TransactionList transactions={transactions} onDelete={handleDelete} />
