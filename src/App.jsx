@@ -36,6 +36,10 @@ function App() {
     setTransactions(prev => prev.filter(t => t.id !== id));
   };
 
+  const handleEdit = (updated) => {
+    setTransactions(prev => prev.map(t => t.id === updated.id ? updated : t));
+  };
+
   if (!currentUser) {
     return <AuthPage onLogin={setCurrentUser} />;
   }
@@ -78,7 +82,7 @@ function App() {
         <Summary transactions={transactions} />
         <TransactionForm onAdd={handleAdd} />
         <div className="mt-24 pt-8">
-          <TransactionList transactions={transactions} onDelete={handleDelete} />
+          <TransactionList transactions={transactions} onDelete={handleDelete} onEdit={handleEdit} />
         </div>
       </main>
     </div>

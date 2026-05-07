@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { CATEGORIES } from './constants'
 
-function TransactionList({ transactions, onDelete }) {
+function TransactionList({ transactions, onDelete, onEdit }) {
   const [filterType, setFilterType] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all");
   const [pendingDelete, setPendingDelete] = useState(null);
+  const [editing, setEditing] = useState(null);
 
   const filtered = transactions.filter(t =>
     (filterType === "all" || t.type === filterType) &&
@@ -16,6 +17,20 @@ function TransactionList({ transactions, onDelete }) {
     border: '1px solid var(--color-border)',
     color: 'var(--color-muted)',
     fontFamily: 'var(--font-body)',
+  };
+
+  const modalInputStyle = {
+    background: 'var(--color-surface-raised)',
+    border: '1px solid var(--color-border)',
+    color: 'var(--color-text)',
+    fontFamily: 'var(--font-body)',
+    width: '100%',
+  };
+
+  const handleEditSave = (e) => {
+    e.preventDefault();
+    onEdit({ ...editing, amount: parseFloat(editing.amount) });
+    setEditing(null);
   };
 
   return (
@@ -76,16 +91,28 @@ function TransactionList({ transactions, onDelete }) {
                   {t.type === "income" ? "+" : "−"}${t.amount.toFixed(2)}
                 </td>
                 <td className="px-6 py-4 text-right">
-                  <button
-                    onClick={() => setPendingDelete(t)}
-                    style={{ color: 'var(--color-muted)' }}
-                    className="hover:text-[var(--color-expense)] transition-colors"
-                    title="Delete"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                  </button>
+                  <div className="flex items-center justify-end gap-3">
+                    <button
+                      onClick={() => setEditing({ ...t })}
+                      style={{ color: 'var(--color-muted)' }}
+                      className="hover:text-[var(--color-income)] transition-colors"
+                      title="Edit"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => setPendingDelete(t)}
+                      style={{ color: 'var(--color-muted)' }}
+                      className="hover:text-[var(--color-expense)] transition-colors"
+                      title="Delete"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -93,6 +120,82 @@ function TransactionList({ transactions, onDelete }) {
         </table>
       )}
 
+      {/* Edit Modal */}
+      {editing && (
+        <div className="fixed inset-0 flex items-center justify-center z-50"
+          style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}>
+          <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}
+            className="w-full max-w-sm mx-4 p-8 rounded-2xl">
+            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', letterSpacing: '0.15em' }}
+              className="text-xs uppercase mb-2">Edit Transaction</p>
+            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text)', fontWeight: 300 }}
+              className="text-3xl italic mb-6">{editing.description}</h3>
+            <form onSubmit={handleEditSave} className="space-y-3">
+              <input
+                type="text"
+                value={editing.description}
+                onChange={(e) => setEditing(prev => ({ ...prev, description: e.target.value }))}
+                placeholder="Description"
+                style={modalInputStyle}
+                className="px-4 py-2.5 text-sm outline-none focus:border-[var(--color-accent)] transition-colors rounded placeholder:text-[var(--color-muted)]"
+              />
+              <input
+                type="number"
+                value={editing.amount}
+                onChange={(e) => setEditing(prev => ({ ...prev, amount: e.target.value }))}
+                placeholder="Amount"
+                style={modalInputStyle}
+                className="px-4 py-2.5 text-sm outline-none focus:border-[var(--color-accent)] transition-colors rounded placeholder:text-[var(--color-muted)]"
+              />
+              <select
+                value={editing.type}
+                onChange={(e) => setEditing(prev => ({ ...prev, type: e.target.value }))}
+                style={modalInputStyle}
+                className="px-4 py-2.5 text-sm outline-none focus:border-[var(--color-accent)] transition-colors rounded"
+              >
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+              <select
+                value={editing.category}
+                onChange={(e) => setEditing(prev => ({ ...prev, category: e.target.value }))}
+                style={modalInputStyle}
+                className="px-4 py-2.5 text-sm capitalize outline-none focus:border-[var(--color-accent)] transition-colors rounded"
+              >
+                {CATEGORIES.map(cat => (
+                  <option key={cat} value={cat} className="capitalize">{cat}</option>
+                ))}
+              </select>
+              <input
+                type="date"
+                value={editing.date}
+                onChange={(e) => setEditing(prev => ({ ...prev, date: e.target.value }))}
+                style={modalInputStyle}
+                className="px-4 py-2.5 text-sm outline-none focus:border-[var(--color-accent)] transition-colors rounded"
+              />
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditing(null)}
+                  style={{ border: '1px solid var(--color-border)', color: 'var(--color-muted)', fontFamily: 'var(--font-body)', letterSpacing: '0.15em' }}
+                  className="flex-1 py-2.5 text-xs uppercase rounded-xl hover:border-[var(--color-muted)] transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  style={{ background: 'var(--color-accent)', fontFamily: 'var(--font-body)', letterSpacing: '0.15em' }}
+                  className="flex-1 py-2.5 text-xs uppercase font-medium text-white rounded-xl hover:opacity-90 transition-opacity"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Modal */}
       {pendingDelete && (
         <div className="fixed inset-0 flex items-center justify-center z-50"
           style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}>
@@ -107,23 +210,14 @@ function TransactionList({ transactions, onDelete }) {
             <div className="flex gap-3 justify-center">
               <button
                 onClick={() => setPendingDelete(null)}
-                style={{
-                  border: '1px solid var(--color-border)',
-                  color: 'var(--color-muted)',
-                  fontFamily: 'var(--font-body)',
-                  letterSpacing: '0.15em',
-                }}
+                style={{ border: '1px solid var(--color-border)', color: 'var(--color-muted)', fontFamily: 'var(--font-body)', letterSpacing: '0.15em' }}
                 className="flex-1 py-2.5 text-xs uppercase rounded-xl hover:border-[var(--color-muted)] transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={() => { onDelete(pendingDelete.id); setPendingDelete(null); }}
-                style={{
-                  background: 'var(--color-expense)',
-                  fontFamily: 'var(--font-body)',
-                  letterSpacing: '0.15em',
-                }}
+                style={{ background: 'var(--color-expense)', fontFamily: 'var(--font-body)', letterSpacing: '0.15em' }}
                 className="flex-1 py-2.5 text-xs uppercase font-medium text-white rounded-xl hover:opacity-90 transition-opacity"
               >
                 Delete
