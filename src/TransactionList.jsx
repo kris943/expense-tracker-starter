@@ -20,9 +20,9 @@ function TransactionList({ transactions, onDelete, onEdit }) {
   };
 
   const modalInputStyle = {
-    background: 'var(--color-surface-raised)',
-    border: '1px solid var(--color-border)',
-    color: 'var(--color-text)',
+    background: 'rgba(255,255,255,0.08)',
+    border: '1px solid rgba(134,187,134,0.25)',
+    color: '#86bb86',
     fontFamily: 'var(--font-body)',
     width: '100%',
   };
@@ -124,11 +124,11 @@ function TransactionList({ transactions, onDelete, onEdit }) {
       {editing && (
         <div className="fixed inset-0 flex items-center justify-center z-50"
           style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}>
-          <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}
+          <div style={{ background: 'linear-gradient(135deg, #1a2e1a 0%, #162516 100%)', border: '1px solid rgba(134,187,134,0.3)' }}
             className="w-full max-w-sm mx-4 p-8 rounded-2xl">
-            <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', letterSpacing: '0.15em' }}
+            <p style={{ fontFamily: 'var(--font-body)', color: '#86bb86', letterSpacing: '0.15em' }}
               className="text-xs uppercase mb-2">Edit Transaction</p>
-            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text)', fontWeight: 300 }}
+            <h3 style={{ fontFamily: 'var(--font-display)', color: '#e8f5e8', fontWeight: 300 }}
               className="text-3xl italic mb-6">{editing.description}</h3>
             <form onSubmit={handleEditSave} className="space-y-3">
               <input
@@ -137,7 +137,7 @@ function TransactionList({ transactions, onDelete, onEdit }) {
                 onChange={(e) => setEditing(prev => ({ ...prev, description: e.target.value }))}
                 placeholder="Description"
                 style={modalInputStyle}
-                className="px-4 py-2.5 text-sm outline-none focus:border-[var(--color-accent)] transition-colors rounded placeholder:text-[var(--color-muted)]"
+                className="px-4 py-2.5 text-sm outline-none transition-colors rounded placeholder:text-[#5a7a5a]"
               />
               <input
                 type="number"
@@ -145,13 +145,13 @@ function TransactionList({ transactions, onDelete, onEdit }) {
                 onChange={(e) => setEditing(prev => ({ ...prev, amount: e.target.value }))}
                 placeholder="Amount"
                 style={modalInputStyle}
-                className="px-4 py-2.5 text-sm outline-none focus:border-[var(--color-accent)] transition-colors rounded placeholder:text-[var(--color-muted)]"
+                className="px-4 py-2.5 text-sm outline-none transition-colors rounded placeholder:text-[#5a7a5a]"
               />
               <select
                 value={editing.type}
                 onChange={(e) => setEditing(prev => ({ ...prev, type: e.target.value }))}
                 style={modalInputStyle}
-                className="px-4 py-2.5 text-sm outline-none focus:border-[var(--color-accent)] transition-colors rounded"
+                className="px-4 py-2.5 text-sm outline-none transition-colors rounded"
               >
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
@@ -160,7 +160,7 @@ function TransactionList({ transactions, onDelete, onEdit }) {
                 value={editing.category}
                 onChange={(e) => setEditing(prev => ({ ...prev, category: e.target.value }))}
                 style={modalInputStyle}
-                className="px-4 py-2.5 text-sm capitalize outline-none focus:border-[var(--color-accent)] transition-colors rounded"
+                className="px-4 py-2.5 text-sm capitalize outline-none transition-colors rounded"
               >
                 {CATEGORIES.map(cat => (
                   <option key={cat} value={cat} className="capitalize">{cat}</option>
@@ -171,20 +171,20 @@ function TransactionList({ transactions, onDelete, onEdit }) {
                 value={editing.date}
                 onChange={(e) => setEditing(prev => ({ ...prev, date: e.target.value }))}
                 style={modalInputStyle}
-                className="px-4 py-2.5 text-sm outline-none focus:border-[var(--color-accent)] transition-colors rounded"
+                className="px-4 py-2.5 text-sm outline-none transition-colors rounded"
               />
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => setEditing(null)}
-                  style={{ border: '1px solid var(--color-border)', color: 'var(--color-muted)', fontFamily: 'var(--font-body)', letterSpacing: '0.15em' }}
-                  className="flex-1 py-2.5 text-xs uppercase rounded-xl hover:border-[var(--color-muted)] transition-colors"
+                  style={{ border: '1px solid rgba(134,187,134,0.3)', color: '#86bb86', fontFamily: 'var(--font-body)', letterSpacing: '0.15em' }}
+                  className="flex-1 py-2.5 text-xs uppercase rounded-xl hover:border-[#86bb86] transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  style={{ background: 'var(--color-accent)', fontFamily: 'var(--font-body)', letterSpacing: '0.15em' }}
+                  style={{ background: '#3d7a3d', border: '1px solid #5a9a5a', fontFamily: 'var(--font-body)', letterSpacing: '0.15em' }}
                   className="flex-1 py-2.5 text-xs uppercase font-medium text-white rounded-xl hover:opacity-90 transition-opacity"
                 >
                   Save
