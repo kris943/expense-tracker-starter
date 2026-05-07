@@ -13,59 +13,67 @@ function AuthPage({ onLogin }) {
     if (username === VALID_USERNAME && password === VALID_PASSWORD) {
       onLogin(username);
     } else {
-      setError("Invalid username or password.");
+      setError("Invalid credentials.");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-indigo-500 mb-4">
-            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h1 className="text-3xl font-bold text-white">Finance Tracker</h1>
-          <p className="text-slate-400 mt-1">Sign in to your account</p>
+    <div style={{ fontFamily: 'var(--font-body)', background: 'var(--color-canvas)', color: 'var(--color-text)' }}
+      className="min-h-screen flex items-center justify-center px-6">
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-10">
+          <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', letterSpacing: '0.2em' }}
+            className="text-xs uppercase mb-4">Finance Tracker</p>
+          <h1 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-text)', fontWeight: 300 }}
+            className="text-5xl italic">Welcome back</h1>
         </div>
 
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1.5">Username</label>
-              <input
-                type="text"
-                placeholder="Enter username"
-                value={username}
-                onChange={(e) => { setUsername(e.target.value); setError(""); }}
-                className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1.5">Password</label>
-              <input
-                type="password"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => { setPassword(e.target.value); setError(""); }}
-                className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-              />
-            </div>
-            {error && (
-              <p className="text-red-400 text-sm">{error}</p>
-            )}
-            <button
-              type="submit"
-              className="w-full py-2.5 px-4 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-xl transition duration-200 mt-2"
-            >
-              Sign In
-            </button>
-          </form>
-          <p className="text-center text-slate-500 text-xs mt-6">
-            Demo: <span className="text-slate-400 font-medium">admin</span> / <span className="text-slate-400 font-medium">password123</span>
-          </p>
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => { setUsername(e.target.value); setError(""); }}
+            style={{
+              background: 'var(--color-surface)',
+              border: '1px solid var(--color-border)',
+              color: 'var(--color-text)',
+              fontFamily: 'var(--font-body)',
+            }}
+            className="w-full px-4 py-3 text-sm outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => { setPassword(e.target.value); setError(""); }}
+            style={{
+              background: 'var(--color-surface)',
+              border: '1px solid var(--color-border)',
+              color: 'var(--color-text)',
+              fontFamily: 'var(--font-body)',
+            }}
+            className="w-full px-4 py-3 text-sm outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
+          />
+          {error && (
+            <p style={{ color: 'var(--color-expense)', fontFamily: 'var(--font-body)' }} className="text-xs">{error}</p>
+          )}
+          <button
+            type="submit"
+            style={{
+              background: 'var(--color-accent)',
+              fontFamily: 'var(--font-body)',
+              letterSpacing: '0.15em',
+            }}
+            className="w-full py-3 text-xs uppercase font-medium text-white hover:opacity-90 transition-opacity mt-2"
+          >
+            Sign In
+          </button>
+        </form>
+
+        <p style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-body)' }} className="text-center text-xs mt-8">
+          Demo: <span style={{ color: 'var(--color-text)' }}>admin</span> / <span style={{ color: 'var(--color-text)' }}>password123</span>
+        </p>
       </div>
     </div>
   );

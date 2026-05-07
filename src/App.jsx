@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import AuthPage from './AuthPage.jsx'
 import Summary from './Summary.jsx'
@@ -7,16 +7,26 @@ import TransactionList from './TransactionList.jsx'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [transactions, setTransactions] = useState([
-    { id: 1, description: "Salary", amount: 5000, type: "income", category: "salary", date: "2025-01-01" },
-    { id: 2, description: "Rent", amount: 1200, type: "expense", category: "housing", date: "2025-01-02" },
-    { id: 3, description: "Groceries", amount: 150, type: "expense", category: "food", date: "2025-01-03" },
-    { id: 4, description: "Freelance Work", amount: 800, type: "income", category: "salary", date: "2025-01-05" },
-    { id: 5, description: "Electric Bill", amount: 95, type: "expense", category: "utilities", date: "2025-01-06" },
-    { id: 6, description: "Dinner Out", amount: 65, type: "expense", category: "food", date: "2025-01-07" },
-    { id: 7, description: "Gas", amount: 45, type: "expense", category: "transport", date: "2025-01-08" },
-    { id: 8, description: "Netflix", amount: 15, type: "expense", category: "entertainment", date: "2025-01-10" },
-  ]);
+  const [transactions, setTransactions] = useState(() => {
+    try {
+      const saved = localStorage.getItem('transactions');
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return [
+      { id: 1, description: "Salary", amount: 5000, type: "income", category: "salary", date: "2025-01-01" },
+      { id: 2, description: "Rent", amount: 1200, type: "expense", category: "housing", date: "2025-01-02" },
+      { id: 3, description: "Groceries", amount: 150, type: "expense", category: "food", date: "2025-01-03" },
+      { id: 4, description: "Freelance Work", amount: 800, type: "income", category: "salary", date: "2025-01-05" },
+      { id: 5, description: "Electric Bill", amount: 95, type: "expense", category: "utilities", date: "2025-01-06" },
+      { id: 6, description: "Dinner Out", amount: 65, type: "expense", category: "food", date: "2025-01-07" },
+      { id: 7, description: "Gas", amount: 45, type: "expense", category: "transport", date: "2025-01-08" },
+      { id: 8, description: "Netflix", amount: 15, type: "expense", category: "entertainment", date: "2025-01-10" },
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+  }, [transactions]);
 
   const handleAdd = (transaction) => {
     setTransactions(prev => [...prev, transaction]);
@@ -31,22 +41,26 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <span className="font-bold text-slate-800 text-lg">Finance Tracker</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-sm text-slate-500">Hello, <span className="font-medium text-slate-700">{currentUser}</span></span>
+    <div style={{ fontFamily: 'var(--font-body)', background: 'var(--color-canvas)', color: 'var(--color-text)', minHeight: '100vh' }}>
+      <header style={{ borderBottom: '1px solid var(--color-border)' }} className="sticky top-0 z-10"
+        css={{ background: 'var(--color-canvas)' }}>
+        <div style={{ background: 'var(--color-canvas)' }}
+          className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+          <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', letterSpacing: '0.2em' }}
+            className="text-xs uppercase">Finance Tracker</p>
+          <div className="flex items-center gap-4">
+            <span style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-body)' }} className="text-xs">
+              {currentUser}
+            </span>
             <button
               onClick={() => setCurrentUser(null)}
-              className="text-sm px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition"
+              style={{
+                border: '1px solid var(--color-border)',
+                color: 'var(--color-muted)',
+                fontFamily: 'var(--font-body)',
+                letterSpacing: '0.15em',
+              }}
+              className="px-4 py-1.5 text-xs uppercase hover:border-[var(--color-muted)] transition-colors"
             >
               Sign Out
             </button>
@@ -54,14 +68,18 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-8 space-y-6">
+      <main className="max-w-4xl mx-auto px-6 py-12 space-y-10">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Dashboard</h2>
-          <p className="text-slate-500 text-sm mt-0.5">Track your income and expenses</p>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: 'var(--color-text)' }}
+            className="text-6xl italic mb-1">Dashboard</h1>
+          <p style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-body)', letterSpacing: '0.1em' }}
+            className="text-xs uppercase">Your financial overview</p>
         </div>
         <Summary transactions={transactions} />
         <TransactionForm onAdd={handleAdd} />
-        <TransactionList transactions={transactions} onDelete={handleDelete} />
+        <div className="mt-24 pt-8">
+          <TransactionList transactions={transactions} onDelete={handleDelete} />
+        </div>
       </main>
     </div>
   );
