@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import AuthPage from './AuthPage.jsx'
 import Summary from './Summary.jsx'
+import Charts from './Charts.jsx'
 import TransactionForm from './TransactionForm.jsx'
 import TransactionList from './TransactionList.jsx'
 
@@ -80,6 +81,7 @@ function App() {
             className="text-xs uppercase">Your financial overview</p>
         </div>
         <Summary transactions={transactions} />
+        <Charts transactions={transactions} />
         <TransactionForm onAdd={handleAdd} />
         <div className="mt-24 pt-8">
           <TransactionList transactions={transactions} onDelete={handleDelete} onEdit={handleEdit} />
