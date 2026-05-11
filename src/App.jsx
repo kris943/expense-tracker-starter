@@ -11,7 +11,7 @@ function App() {
   const [transactions, setTransactions] = useState(() => {
     try {
       const saved = localStorage.getItem('transactions');
-      if (saved) return JSON.parse(saved);
+      if (saved) return JSON.parse(saved).map(t => ({ ...t, amount: parseFloat(t.amount) }));
     } catch {}
     return [
       { id: 1, description: "Salary", amount: 5000, type: "income", category: "salary", date: "2025-01-01" },
