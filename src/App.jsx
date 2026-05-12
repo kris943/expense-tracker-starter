@@ -7,7 +7,7 @@ import TransactionForm from './TransactionForm.jsx'
 import TransactionList from './TransactionList.jsx'
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(() => localStorage.getItem('currentUser'));
   const [transactions, setTransactions] = useState(() => {
     try {
       const saved = localStorage.getItem('transactions');
@@ -42,7 +42,7 @@ function App() {
   };
 
   if (!currentUser) {
-    return <AuthPage onLogin={setCurrentUser} />;
+    return <AuthPage onLogin={(user) => { localStorage.setItem('currentUser', user); setCurrentUser(user); }} />;
   }
 
   return (
@@ -58,7 +58,7 @@ function App() {
               {currentUser}
             </span>
             <button
-              onClick={() => setCurrentUser(null)}
+              onClick={() => { localStorage.removeItem('currentUser'); setCurrentUser(null); }}
               style={{
                 border: '1px solid var(--color-border)',
                 color: 'var(--color-muted)',
