@@ -40,7 +40,7 @@ function AuthPage({ onLogin }) {
               color: 'var(--color-text)',
               fontFamily: 'var(--font-body)',
             }}
-            className="w-full px-4 py-3 text-sm outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
+            className="w-full px-4 py-4 text-base rounded-lg outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
           />
           <input
             type="password"
@@ -53,7 +53,7 @@ function AuthPage({ onLogin }) {
               color: 'var(--color-text)',
               fontFamily: 'var(--font-body)',
             }}
-            className="w-full px-4 py-3 text-sm outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
+            className="w-full px-4 py-4 text-base rounded-lg outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
           />
           {error && (
             <p style={{ color: 'var(--color-expense)', fontFamily: 'var(--font-body)' }} className="text-xs">{error}</p>
@@ -65,7 +65,7 @@ function AuthPage({ onLogin }) {
               fontFamily: 'var(--font-body)',
               letterSpacing: '0.15em',
             }}
-            className="w-full py-3 text-xs uppercase font-medium text-white hover:opacity-90 transition-opacity mt-2"
+            className="w-full py-4 text-sm uppercase font-medium tracking-widest text-white rounded-lg hover:opacity-90 transition-opacity mt-2"
           >
             Sign In
           </button>
