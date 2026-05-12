@@ -58,7 +58,7 @@ function Charts({ transactions }) {
           className="text-xs uppercase">Overview</p>
       </div>
 
-      <div style={{ background: 'var(--color-surface-raised)' }} className="grid grid-cols-2 divide-x divide-[var(--color-border)]">
+      <div style={{ background: 'var(--color-surface-raised)' }} className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[var(--color-border)]">
 
         {/* Donut */}
         <div className="px-6 py-8">

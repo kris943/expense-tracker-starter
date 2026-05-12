@@ -18,13 +18,13 @@ function Summary({ transactions }) {
   ];
 
   return (
-    <div className="grid grid-cols-3 gap-px" style={{ border: '1px solid var(--color-border)', background: 'var(--color-border)' }}>
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-px" style={{ border: '1px solid var(--color-border)', background: 'var(--color-border)' }}>
       {cards.map(({ label, value, color }) => (
-        <div key={label} style={{ background: 'var(--color-surface)' }} className="px-6 py-8">
+        <div key={label} style={{ background: 'var(--color-surface)' }} className="px-5 py-6 sm:px-6 sm:py-8">
           <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', letterSpacing: '0.15em' }}
-            className="text-xs uppercase mb-3">{label}</p>
+            className="text-xs uppercase mb-2 sm:mb-3">{label}</p>
           <p style={{ fontFamily: 'var(--font-display)', color, fontWeight: 300 }}
-            className="text-4xl">${value}</p>
+            className="text-3xl sm:text-4xl">${value}</p>
         </div>
       ))}
     </div>

@@ -41,14 +41,14 @@ function TransactionForm({ onAdd }) {
           className="text-xs uppercase">Add Transaction</p>
       </div>
       <div className="px-6 py-5">
-        <form onSubmit={handleSubmit} className="flex gap-3 flex-wrap items-center">
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
           <input
             type="text"
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             style={inputStyle}
-            className="w-44 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-[#5a7a5a] rounded"
+            className="col-span-2 w-full sm:w-44 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-[#5a7a5a] rounded"
           />
           <input
             type="number"
@@ -56,13 +56,13 @@ function TransactionForm({ onAdd }) {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             style={inputStyle}
-            className="w-28 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-[#5a7a5a] rounded"
+            className="w-full sm:w-28 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-[#5a7a5a] rounded"
           />
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
             style={inputStyle}
-            className="w-32 px-4 py-2.5 text-sm outline-none transition-colors rounded"
+            className="w-full sm:w-32 px-4 py-2.5 text-sm outline-none transition-colors rounded"
           >
             <option value="income">Income</option>
             <option value="expense">Expense</option>
@@ -71,7 +71,7 @@ function TransactionForm({ onAdd }) {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             style={inputStyle}
-            className="w-32 px-4 py-2.5 text-sm outline-none transition-colors capitalize rounded"
+            className="w-full sm:w-32 px-4 py-2.5 text-sm outline-none transition-colors capitalize rounded"
           >
             {CATEGORIES.map(cat => (
               <option key={cat} value={cat} className="capitalize">{cat}</option>
@@ -86,7 +86,7 @@ function TransactionForm({ onAdd }) {
               letterSpacing: '0.08em',
               border: '1px solid #5a9a5a',
             }}
-            className="px-6 py-[9px] text-base font-medium text-white hover:opacity-90 transition-opacity whitespace-nowrap rounded"
+            className="col-span-2 sm:col-auto w-full sm:w-auto px-6 py-[9px] text-base font-medium text-white hover:opacity-90 transition-opacity whitespace-nowrap rounded"
           >
             Add
           </button>

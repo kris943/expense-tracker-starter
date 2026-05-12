@@ -50,7 +50,7 @@ function App() {
       <header style={{ borderBottom: '1px solid var(--color-border)' }} className="sticky top-0 z-10"
         css={{ background: 'var(--color-canvas)' }}>
         <div style={{ background: 'var(--color-canvas)' }}
-          className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+          className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <p style={{ fontFamily: 'var(--font-body)', color: 'var(--color-muted)', letterSpacing: '0.2em' }}
             className="text-xs uppercase">Finance Tracker</p>
           <div className="flex items-center gap-4">
@@ -73,17 +73,17 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-12 space-y-10">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8 sm:space-y-10">
         <div>
           <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: 'var(--color-text)' }}
-            className="text-6xl italic mb-1">Dashboard</h1>
+            className="text-4xl sm:text-6xl italic mb-1">Dashboard</h1>
           <p style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-body)', letterSpacing: '0.1em' }}
             className="text-xs uppercase">Your financial overview</p>
         </div>
         <Summary transactions={transactions} />
         <Charts transactions={transactions} />
         <TransactionForm onAdd={handleAdd} />
-        <div className="mt-24 pt-8">
+        <div className="mt-10 sm:mt-24 pt-6 sm:pt-8">
           <TransactionList transactions={transactions} onDelete={handleDelete} onEdit={handleEdit} />
         </div>
       </main>
