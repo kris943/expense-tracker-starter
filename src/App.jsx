@@ -6,28 +6,34 @@ import Charts from './Charts.jsx'
 import TransactionForm from './TransactionForm.jsx'
 import TransactionList from './TransactionList.jsx'
 
+const DEFAULT_TRANSACTIONS = [
+  { id: 1, description: "Salary", amount: 5000, type: "income", category: "salary", date: "2025-01-01" },
+  { id: 2, description: "Rent", amount: 1200, type: "expense", category: "housing", date: "2025-01-02" },
+  { id: 3, description: "Groceries", amount: 150, type: "expense", category: "food", date: "2025-01-03" },
+  { id: 4, description: "Freelance Work", amount: 800, type: "income", category: "salary", date: "2025-01-05" },
+  { id: 5, description: "Electric Bill", amount: 95, type: "expense", category: "utilities", date: "2025-01-06" },
+  { id: 6, description: "Dinner Out", amount: 65, type: "expense", category: "food", date: "2025-01-07" },
+  { id: 7, description: "Gas", amount: 45, type: "expense", category: "transport", date: "2025-01-08" },
+  { id: 8, description: "Netflix", amount: 15, type: "expense", category: "entertainment", date: "2025-01-10" },
+];
+
+function loadTransactions(user) {
+  try {
+    const saved = localStorage.getItem(`transactions_${user}`);
+    if (saved) return JSON.parse(saved).map(t => ({ ...t, amount: parseFloat(t.amount) }));
+  } catch {}
+  return DEFAULT_TRANSACTIONS;
+}
+
 function App() {
   const [currentUser, setCurrentUser] = useState(() => localStorage.getItem('currentUser'));
-  const [transactions, setTransactions] = useState(() => {
-    try {
-      const saved = localStorage.getItem('transactions');
-      if (saved) return JSON.parse(saved).map(t => ({ ...t, amount: parseFloat(t.amount) }));
-    } catch {}
-    return [
-      { id: 1, description: "Salary", amount: 5000, type: "income", category: "salary", date: "2025-01-01" },
-      { id: 2, description: "Rent", amount: 1200, type: "expense", category: "housing", date: "2025-01-02" },
-      { id: 3, description: "Groceries", amount: 150, type: "expense", category: "food", date: "2025-01-03" },
-      { id: 4, description: "Freelance Work", amount: 800, type: "income", category: "salary", date: "2025-01-05" },
-      { id: 5, description: "Electric Bill", amount: 95, type: "expense", category: "utilities", date: "2025-01-06" },
-      { id: 6, description: "Dinner Out", amount: 65, type: "expense", category: "food", date: "2025-01-07" },
-      { id: 7, description: "Gas", amount: 45, type: "expense", category: "transport", date: "2025-01-08" },
-      { id: 8, description: "Netflix", amount: 15, type: "expense", category: "entertainment", date: "2025-01-10" },
-    ];
-  });
+  const [transactions, setTransactions] = useState(() =>
+    currentUser ? loadTransactions(currentUser) : []
+  );
 
   useEffect(() => {
-    localStorage.setItem('transactions', JSON.stringify(transactions));
-  }, [transactions]);
+    if (currentUser) localStorage.setItem(`transactions_${currentUser}`, JSON.stringify(transactions));
+  }, [transactions, currentUser]);
 
   const handleAdd = (transaction) => {
     setTransactions(prev => [...prev, transaction]);
@@ -42,7 +48,13 @@ function App() {
   };
 
   if (!currentUser) {
-    return <AuthPage onLogin={(user) => { localStorage.setItem('currentUser', user); setCurrentUser(user); }} />;
+    return (
+      <AuthPage onLogin={(user) => {
+        localStorage.setItem('currentUser', user);
+        setCurrentUser(user);
+        setTransactions(loadTransactions(user));
+      }} />
+    );
   }
 
   return (
