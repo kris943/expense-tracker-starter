@@ -118,7 +118,7 @@ function AuthPage({ onLogin }) {
               fontFamily: 'var(--font-body)',
               letterSpacing: '0.15em',
             }}
-            className="w-full py-5 text-base uppercase font-medium tracking-widest text-white rounded-xl hover:opacity-90 transition-opacity mt-2"
+            className="w-full py-6 text-xl uppercase font-medium tracking-widest text-white rounded-xl hover:opacity-90 transition-opacity mt-8"
           >
             {isSignUp ? 'Create Account' : 'Sign In'}
           </button>
