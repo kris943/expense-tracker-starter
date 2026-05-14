@@ -84,7 +84,7 @@ function Charts({ transactions }) {
         </div>
 
         {/* Bar */}
-        <div className="px-6 py-8">
+        <div className="px-6 py-8 overflow-hidden">
           <p style={{ fontFamily: 'var(--font-display)', color: 'var(--color-muted)', fontWeight: 300 }}
             className="text-sm italic mb-6">By Category</p>
           <ResponsiveContainer width="100%" height={200}>
