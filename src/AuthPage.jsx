@@ -78,7 +78,7 @@ function AuthPage({ onLogin }) {
               color: 'var(--color-text)',
               fontFamily: 'var(--font-body)',
             }}
-            className="w-full px-4 py-4 text-base rounded-lg outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
+            className="w-full px-5 py-5 text-lg rounded-xl outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
           />
           <input
             type="password"
@@ -91,7 +91,7 @@ function AuthPage({ onLogin }) {
               color: 'var(--color-text)',
               fontFamily: 'var(--font-body)',
             }}
-            className="w-full px-4 py-4 text-base rounded-lg outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
+            className="w-full px-5 py-5 text-lg rounded-xl outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
           />
           {isSignUp && (
             <input
@@ -105,11 +105,11 @@ function AuthPage({ onLogin }) {
                 color: 'var(--color-text)',
                 fontFamily: 'var(--font-body)',
               }}
-              className="w-full px-4 py-4 text-base rounded-lg outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
+              className="w-full px-5 py-5 text-lg rounded-xl outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
             />
           )}
           {error && (
-            <p style={{ color: 'var(--color-expense)', fontFamily: 'var(--font-body)' }} className="text-xs">{error}</p>
+            <p style={{ color: 'var(--color-expense)', fontFamily: 'var(--font-body)' }} className="text-sm">{error}</p>
           )}
           <button
             type="submit"
@@ -118,7 +118,7 @@ function AuthPage({ onLogin }) {
               fontFamily: 'var(--font-body)',
               letterSpacing: '0.15em',
             }}
-            className="w-full py-4 text-sm uppercase font-medium tracking-widest text-white rounded-lg hover:opacity-90 transition-opacity mt-2"
+            className="w-full py-5 text-base uppercase font-medium tracking-widest text-white rounded-xl hover:opacity-90 transition-opacity mt-2"
           >
             {isSignUp ? 'Create Account' : 'Sign In'}
           </button>
