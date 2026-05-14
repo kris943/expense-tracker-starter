@@ -80,7 +80,7 @@ function AuthPage({ onLogin }) {
               color: 'var(--color-text)',
               fontFamily: 'var(--font-body)',
             }}
-            className="w-full px-5 py-5 text-lg rounded-xl outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
+            className="w-full px-6 py-5 text-lg rounded-xl outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
           />
           <input
             type="password"
@@ -93,7 +93,7 @@ function AuthPage({ onLogin }) {
               color: 'var(--color-text)',
               fontFamily: 'var(--font-body)',
             }}
-            className="w-full px-5 py-5 text-lg rounded-xl outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
+            className="w-full px-6 py-5 text-lg rounded-xl outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
           />
           {isSignUp && (
             <input
@@ -107,7 +107,7 @@ function AuthPage({ onLogin }) {
                 color: 'var(--color-text)',
                 fontFamily: 'var(--font-body)',
               }}
-              className="w-full px-5 py-5 text-lg rounded-xl outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
+              className="w-full px-6 py-5 text-lg rounded-xl outline-none focus:border-[var(--color-accent)] transition-colors placeholder:text-[var(--color-muted)]"
             />
           )}
           {error && (
