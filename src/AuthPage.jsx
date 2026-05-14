@@ -29,26 +29,28 @@ function AuthPage({ onLogin }) {
 
   const handleSignIn = (e) => {
     e.preventDefault();
+    const name = username.trim();
     const users = getUsers();
-    if (!username.trim()) return setError('Username is required.');
+    if (!name) return setError('Username is required.');
     if (!password) return setError('Password is required.');
-    if (users[username] === undefined) return setError('No account found with that username.');
-    if (users[username] !== password) return setError('Incorrect password.');
-    onLogin(username);
+    if (users[name] === undefined) return setError('No account found. Check your username or create an account.');
+    if (users[name] !== password) return setError('Incorrect password.');
+    onLogin(name);
   };
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    if (!username.trim()) return setError('Username is required.');
-    if (username.length < 3) return setError('Username must be at least 3 characters.');
+    const name = username.trim();
+    if (!name) return setError('Username is required.');
+    if (name.length < 3) return setError('Username must be at least 3 characters.');
     if (!password) return setError('Password is required.');
     if (password.length < 6) return setError('Password must be at least 6 characters.');
     if (password !== confirmPassword) return setError('Passwords do not match.');
     const users = getUsers();
-    if (users[username] !== undefined) return setError('That username is already taken.');
-    users[username] = password;
+    if (users[name] !== undefined) return setError('That username is already taken.');
+    users[name] = password;
     saveUsers(users);
-    onLogin(username);
+    onLogin(name);
   };
 
   const isSignUp = mode === 'signup';

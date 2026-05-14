@@ -26,7 +26,18 @@ function loadTransactions(user) {
 }
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(() => localStorage.getItem('currentUser'));
+  const [currentUser, setCurrentUser] = useState(() => {
+    const user = localStorage.getItem('currentUser');
+    if (!user) return null;
+    try {
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
+      if (users[user] === undefined) {
+        localStorage.removeItem('currentUser');
+        return null;
+      }
+    } catch {}
+    return user;
+  });
   const [transactions, setTransactions] = useState(() =>
     currentUser ? loadTransactions(currentUser) : []
   );
