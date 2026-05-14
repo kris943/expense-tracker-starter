@@ -66,7 +66,7 @@ function AuthPage({ onLogin }) {
           </h1>
         </div>
 
-        <form onSubmit={isSignUp ? handleSignUp : handleSignIn} className="space-y-4">
+        <form onSubmit={isSignUp ? handleSignUp : handleSignIn} className="space-y-6">
           <input
             type="text"
             placeholder="Username"
@@ -124,12 +124,12 @@ function AuthPage({ onLogin }) {
           </button>
         </form>
 
-        <p style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-body)' }} className="text-center text-xs mt-8">
+        <p style={{ color: 'var(--color-muted)', fontFamily: 'var(--font-body)' }} className="text-center text-base mt-8">
           {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
           <button
             onClick={() => reset(isSignUp ? 'signin' : 'signup')}
             style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-body)' }}
-            className="underline underline-offset-2 hover:opacity-80 transition-opacity"
+            className="text-base underline underline-offset-2 hover:opacity-80 transition-opacity"
           >
             {isSignUp ? 'Sign in' : 'Create one'}
           </button>
